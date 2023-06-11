@@ -4,7 +4,7 @@ const axios = require("axios");
 const app = express();
 
 const port = process.env.PORT || 3030;
-const path = "http://127.0.0.1:8887";
+const path = "api/listings.json";
 
 app.get("/", (req, res) => {
   res.send("<h1>NodeJS App</h1>");
