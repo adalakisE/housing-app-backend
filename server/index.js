@@ -4,14 +4,19 @@ const axios = require("axios");
 const app = express();
 
 const port = process.env.PORT || 3030;
-const path = "api/listings.json";
 
 app.get("/", (req, res) => {
   res.send("<h1>NodeJS App</h1>");
 });
 
 app.get("/listings.json", (req, res) => {
-  axios.get(data).then((response) => {
+  axios.get(dataListing).then((response) => {
+    res.send(response.data);
+  });
+});
+
+app.get("/test", (req, res) => {
+  axios.get(testVar).then((response) => {
     res.send(response.data);
   });
 });
@@ -20,7 +25,9 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-const data = [
+const testVar = "testVar1";
+
+const dataListing = [
   {
     id: 1,
     title: "Modern Apartment in Central Athens",
