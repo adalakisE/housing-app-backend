@@ -10,15 +10,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/listings.json", (req, res) => {
-  axios.get(dataListing).then((response) => {
-    res.send(response.data);
-  });
+  res.send(dataListing);
 });
 
 app.get("/test", (req, res) => {
-  axios.get(testVar).then((response) => {
-    res.send(response.data);
-  });
+  res.send(testVar);
 });
 
 app.listen(port, () => {
