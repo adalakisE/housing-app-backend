@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.send("<h1>NodeJS App</h1>");
 });
 
-app.get("/listings", (req, res) => {
+app.get("/listings.json", (req, res) => {
   res.send(dataListing);
 });
 
