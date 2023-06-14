@@ -1,5 +1,4 @@
 const express = require("express");
-const axios = require("axios");
 const dataListing = require("../api/listings.mock");
 
 const app = express();
