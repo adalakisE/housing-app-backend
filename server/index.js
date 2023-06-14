@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
   res.send("<h1>NodeJS App</h1>");
 });
 
-app.get("/listings.json", (req, res) => {
+app.get("/listings", (req, res) => {
   res.send(dataListing);
 });
 
