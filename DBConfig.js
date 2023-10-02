@@ -1,8 +1,10 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const mongoose = require("mongoose");
 
 function connectDB() {
-  const url =
-    "mongodb+srv://admin:J5qD5gCaU4HGc8T@cluster0.bu2drdk.mongodb.net/?retryWrites=true&w=majority";
+  const url = `mongodb+srv://${process.env.USER_ID}:${process.env.PASSWORD}@cluster0.bu2drdk.mongodb.net/?retryWrites=true&w=majority`;
 
   try {
     mongoose.connect(url, {
