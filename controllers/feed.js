@@ -1,14 +1,33 @@
 const ItemModel = require("../models/item");
 
-exports.getItems = (_req, res, _next) => {
+exports.getItems = (req, res, _next) => {
+  const reqPrice = parseInt(req.query.price);
+  const reqSize = parseInt(req.query.size);
+  const reqBedrooms = parseInt(req.query.bedrooms);
+
+  console.log(req.query);
+  console.log(typeof req.query.price);
   // return an array of items
-  ItemModel.find().then((foundItems) => {
+  ItemModel.find({
+    price: { $gt: reqPrice },
+    sqFt: { $gt: reqSize },
+    bedrooms: { $gt: reqBedrooms },
+  }).then((foundItems) => {
     res.json({
-      // message: "All items",
       items: foundItems,
     });
   });
 };
+
+// exports.getItems = (_req, res, _next) => {
+//   // return an array of items
+//   ItemModel.find().then((foundItems) => {
+//     res.json({
+//       // message: "All items",
+//       items: foundItems,
+//     });
+//   });
+// };
 
 exports.createItem = (req, res, next) => {
   // get items's title and content from the request
