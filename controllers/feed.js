@@ -5,29 +5,23 @@ exports.getItems = (req, res, _next) => {
   const reqSize = parseInt(req.query.size);
   const reqBedrooms = parseInt(req.query.bedrooms);
 
-  console.log(req.query);
-  console.log(typeof req.query.price);
+  var reqTitle = req.query.title;
+  reqTitle = new RegExp(reqTitle, "i");
+
   // return an array of items
   ItemModel.find({
     price: { $gt: reqPrice },
     sqFt: { $gt: reqSize },
     bedrooms: { $gt: reqBedrooms },
+    title: reqTitle,
+    area: reqTitle,
+    description: reqTitle,
   }).then((foundItems) => {
     res.json({
       items: foundItems,
     });
   });
 };
-
-// exports.getItems = (_req, res, _next) => {
-//   // return an array of items
-//   ItemModel.find().then((foundItems) => {
-//     res.json({
-//       // message: "All items",
-//       items: foundItems,
-//     });
-//   });
-// };
 
 exports.createItem = (req, res, next) => {
   // get items's title and content from the request
