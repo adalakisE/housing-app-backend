@@ -8,7 +8,7 @@ const connectDB = require("../DBConfig.js");
 
 connectDB;
 
-const port = process.env.PORT || 3030;
+const port = process.env.PORT || 5500;
 
 app.use(express.json());
 
