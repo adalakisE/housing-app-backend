@@ -10,9 +10,9 @@ exports.getItems = (req, res, _next) => {
   var reqTitle = req.query.title;
   reqTitle = new RegExp(reqTitle, "i");
 
-  console.log(req.query);
-  console.log(reqPrice, reqSize, reqBedrooms);
-  console.log(reqTitle);
+  // console.log(req.query);
+  // console.log(reqPrice, reqSize, reqBedrooms);
+
   // return an array of items
   ItemModel.find({
     price: { $gt: reqPrice },
