@@ -1,5 +1,11 @@
 const ItemModel = require("../models/item");
 
+exports.getItem = (req, res, _next) => {
+  const reqId = parseInt(req.query.id);
+
+  ItemModel.findOne({ id: reqId }).then((item) => res.json(item));
+};
+
 exports.getItems = (req, res, _next) => {
   const reqPrice = req.query.price?.length ? parseInt(req.query.price) : 0;
   const reqSize = req.query.size?.length ? parseInt(req.query.size) : 0;
@@ -9,9 +15,6 @@ exports.getItems = (req, res, _next) => {
 
   var reqTitle = req.query.title;
   reqTitle = new RegExp(reqTitle, "i");
-
-  // console.log(req.query);
-  // console.log(reqPrice, reqSize, reqBedrooms);
 
   // return an array of items
   ItemModel.find({
