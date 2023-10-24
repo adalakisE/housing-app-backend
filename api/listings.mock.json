@@ -1,4 +1,4 @@
-const dataListing =[
+[
   {
     "id": 1,
     "title": "Modern Apartment in Central Athens",
@@ -240,6 +240,3 @@ const dataListing =[
     "longitude": 23.7229
   }
 ]
-
-
-module.exports = dataListing;
