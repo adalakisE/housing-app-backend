@@ -23,9 +23,7 @@ exports.getItems = (req, res, _next) => {
     bedrooms: { $gt: reqBedrooms },
     $or: [{ title: reqTitle }, { area: reqTitle }, { description: reqTitle }],
   }).then((foundItems) => {
-    res.json({
-      items: foundItems,
-    });
+    res.json(foundItems);
   });
 };
 
