@@ -7,20 +7,37 @@ exports.getItem = (req, res, _next) => {
 };
 
 exports.getItems = (req, res, _next) => {
-  const reqPrice = req.query.price?.length ? parseInt(req.query.price) : 0;
-  const reqSize = req.query.size?.length ? parseInt(req.query.size) : 0;
-  const reqBedrooms = req.query.bedrooms?.length
-    ? parseInt(req.query.bedrooms)
+  // const reqPrice = req.query.price?.length ? parseInt(req.query.price) : 0;
+  console.log(req.query);
+  const reqMinPrice = req.query.minPrice?.length
+    ? parseInt(req.query.minPrice)
     : 0;
+  const reqMaxPrice = req.query.maxPrice?.length
+    ? parseInt(req.query.maxPrice)
+    : 10000;
+  const reqMinSize = req.query.minSize?.length
+    ? parseInt(req.query.minSize)
+    : 0;
+  const reqMaxSize = req.query.maxSize?.length
+    ? parseInt(req.query.maxSize)
+    : 10000;
+  const reqMinBedrooms = req.query.minBedrooms?.length
+    ? parseInt(req.query.minBedrooms)
+    : 0;
+  const reqMaxBedrooms = req.query.maxBedrooms?.length
+    ? parseInt(req.query.maxBedrooms)
+    : 10;
 
   var reqTitle = req.query.title;
   reqTitle = new RegExp(reqTitle, "i");
 
+  console.log("search:");
+  console.log(reqMaxPrice);
   // return an array of items
   ItemModel.find({
-    price: { $gt: reqPrice },
-    sqFt: { $gt: reqSize * 10.764 }, // convert to sqFt
-    bedrooms: { $gt: reqBedrooms },
+    price: { $gte: reqMinPrice, $lte: reqMaxPrice },
+    sqFt: { $gte: reqMinSize * 10.764, $lte: reqMaxSize * 10.764 }, // convert to sqFt
+    bedrooms: { $gte: reqMinBedrooms, $lte: reqMaxBedrooms },
     $or: [{ title: reqTitle }, { area: reqTitle }, { description: reqTitle }],
   }).then((foundItems) => {
     res.json(foundItems);
