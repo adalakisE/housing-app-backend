@@ -1,6 +1,6 @@
 const ItemModel = require("../models/item");
 
-exports.getItem = (req, res, _next) => {
+exports.getSingleItem = (req, res, _next) => {
   const reqId = parseInt(req.query.id);
 
   ItemModel.findOne({ id: reqId }).then((item) => res.json(item));
@@ -41,6 +41,38 @@ exports.getItems = (req, res, _next) => {
     $or: [{ title: reqTitle }, { area: reqTitle }, { description: reqTitle }],
   }).then((foundItems) => {
     res.json(foundItems);
+  });
+};
+
+exports.getItemsCount = (req, res, _next) => {
+  const reqMinPrice = req.query.minPrice?.length
+    ? parseInt(req.query.minPrice)
+    : 0;
+  const reqMaxPrice = req.query.maxPrice?.length
+    ? parseInt(req.query.maxPrice)
+    : 10000;
+  const reqMinSize = req.query.minSize?.length
+    ? parseInt(req.query.minSize)
+    : 0;
+  const reqMaxSize = req.query.maxSize?.length
+    ? parseInt(req.query.maxSize)
+    : 10000;
+  const reqMinBedrooms = req.query.minBedrooms?.length
+    ? parseInt(req.query.minBedrooms)
+    : 0;
+  const reqMaxBedrooms = req.query.maxBedrooms?.length
+    ? parseInt(req.query.maxBedrooms)
+    : 10;
+  var reqTitle = req.query.title;
+  reqTitle = new RegExp(reqTitle, "i");
+
+  ItemModel.countDocuments({
+    price: { $gte: reqMinPrice, $lte: reqMaxPrice },
+    sqFt: { $gte: reqMinSize * 10.764, $lte: reqMaxSize * 10.764 }, // convert to sqFt
+    bedrooms: { $gte: reqMinBedrooms, $lte: reqMaxBedrooms },
+    $or: [{ title: reqTitle }, { area: reqTitle }, { description: reqTitle }],
+  }).then((count) => {
+    res.json({ count });
   });
 };
 
