@@ -77,19 +77,39 @@ exports.getItemsCount = (req, res, _next) => {
 };
 
 exports.createItem = (req, res, next) => {
-  // get items's title and content from the request
-  // create a new item instance
-  const title = req.body.title;
-  const description = req.body.description;
+  const {
+    title,
+    description,
+    price,
+    sqFt,
+    area,
+    bedrooms,
+    latitude,
+    longitude,
+  } = req.body;
 
   const item = new ItemModel({
-    title: title,
-    description: description,
+    title,
+    description,
+    price,
+    sqFt,
+    area,
+    bedrooms,
+    latitude,
+    longitude,
   });
 
-  console.log(title, description);
+  console.log(
+    title,
+    description,
+    price,
+    sqFt,
+    area,
+    bedrooms,
+    latitude,
+    longitude
+  );
 
-  // save the instance to the database
   item
     .save()
     .then((itemSaved) => {
@@ -98,5 +118,11 @@ exports.createItem = (req, res, next) => {
         item: itemSaved,
       });
     })
-    .catch((err) => console.log("err", err));
+    .catch((err) => {
+      console.log("err", err);
+      res.status(500).json({
+        message: "Creating item failed!",
+        error: err,
+      });
+    });
 };
