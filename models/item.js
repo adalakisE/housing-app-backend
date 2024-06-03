@@ -33,6 +33,10 @@ const ItemSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
+  photoLink: {
+    type: String,
+    required: false,
+  },
   date: {
     type: Date,
     default: Date.now,

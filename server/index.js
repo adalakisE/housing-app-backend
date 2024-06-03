@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const feedRoutes = require("../routes/ListingRouter");
 const app = express();
@@ -10,7 +11,8 @@ connectDB;
 
 const port = process.env.PORT || 5500;
 
-app.use(express.json());
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 dotenv.config();
 

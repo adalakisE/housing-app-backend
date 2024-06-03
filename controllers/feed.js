@@ -86,6 +86,7 @@ exports.createItem = (req, res, next) => {
     bedrooms,
     latitude,
     longitude,
+    photoLink,
   } = req.body;
 
   const item = new ItemModel({
@@ -97,6 +98,7 @@ exports.createItem = (req, res, next) => {
     bedrooms,
     latitude,
     longitude,
+    photoLink,
   });
 
   console.log(
